@@ -1,0 +1,157 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F6F1EC;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.logo-area {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.logo {
+  color: #E57C35;
+  font-size: 31px;
+  font-family: 'Georgia', serif;
+}
+
+.subtitle {
+  color: #937c6c;
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Georgia', serif;
+}
+
+.descricao {
+  text-align: center;
+  color: #937c6c;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+label {
+  font-size: 14px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #F3ECE6;
+  font-size: 14px;
+}
+
+.input-erro {
+  border: 2px solid #D32F2F !important;
+  background-color: #FDECEA !important;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: #E57C35;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.sucesso-box {
+  background-color: #FEF3EC;
+  border: 1px solid #F5C6A0;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.sucesso-titulo {
+  color: #E57C35;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.sucesso-texto {
+  color: #937c6c;
+  font-size: 14px;
+}
+
+.erro {
+  margin-top: -10px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #D32F2F;
+  background-color: #FDECEA;
+  border: 1px solid #F5C6CB;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #937c6c;
+}
+
+.login-link a {
+  color: #E57C35;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #888;
+}
