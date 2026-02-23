@@ -1,0 +1,128 @@
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 🔥 CENTRALIZA TUDO */
+  align-items: center;
+  background-color: #F6F1EC;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+.logo-area {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.logo {
+  color: #E57C35;
+  font-size: 31px;
+}
+
+.subtitle {
+  color: #937c6c;
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+
+.card {
+  background: white;
+  padding: 80px 80px;
+  width: 100%;
+  max-width: 420px; 
+  border-radius: 13px;
+  box-shadow: 0 19px 35px rgba(0,0,0,0.06);
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 17px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #F3ECE6;
+  box-sizing: border-box;
+}
+
+.input-erro {
+  border: 2px solid #D32F2F !important;
+  background-color: #FDECEA;
+}
+
+
+button {
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+  background-color: #E57C35;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link span {
+  color: #937c6c;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-link a {
+  color: #E57C35;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.erro {
+  margin-top: 10px;
+  text-align: center;
+  color: #D32F2F;
+  background-color: #FDECEA;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+.footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #888;
+}
+
+
+.card form {
+  width: 100%;
+}
+
+
+.card label,
+.card input,
+.card button {
+  width: 100%;
+}

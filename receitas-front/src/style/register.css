@@ -1,0 +1,150 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+* {
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+
+}
+
+}
+
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fbf7f4;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 18px;
+}
+
+
+.logo-area {
+  text-align: center;
+  padding-top: 6px;
+}
+
+.logo {
+  color: #E57C35;
+  font-size: 31px;
+  font-family: 'Georgia', serif;
+}
+
+.subtitle {
+  color: #937c6c;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+
+ .center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.card {
+  background-color: white;
+  padding: 35px 35px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 13px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+  text-align: center;
+  margin-top: -10px;
+  font-family: 'Georgia', serif;
+}
+
+
+label {
+  font-size: 16px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #e8e0d9;
+  background-color: #fbf7f4;
+}
+
+.input-erro {
+  border: 2px solid #D32F2F !important; 
+  background-color: #ffffff !important;
+}
+
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #E57C35;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #937c6c;
+}
+
+.login-link span {
+  color: #E57C35;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.erro {
+  color: #D32F2F; 
+  background-color: #FDECEA; 
+  border: 1px solid #F5C6CB;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+.sucesso {
+  color: #2E7D32; 
+  background-color: #E6F4EA; 
+  border: 1px solid #A5D6A7;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+.esqueceu-senha {
+  text-align: right;
+  margin-top: -14px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.esqueceu-senha a {
+  color: #E57C35;
+  text-decoration: none;
+}
