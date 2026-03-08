@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import RecuperarSenha from "./pages/RecuperarSenha";
 import RedefinirSenha from "./pages/RedefinirSenha";
 import PrivateRoute from "./components/PrivateRoute";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/redefinirSenha" element={<RedefinirSenha />} />
+        <Route path="/home" element={<Home />} />
 
       </Routes>
     </BrowserRouter>

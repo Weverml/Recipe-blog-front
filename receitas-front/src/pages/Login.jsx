@@ -61,6 +61,17 @@ function Login() {
     }
   };
 
+  /* BOTÃO DE TESTE */
+  const entrarTeste = () => {
+    const usuarioFake = {
+      nome: "Usuário Teste",
+      email: "teste@feedeat.com"
+    };
+
+    salvarUsuarioLogado(usuarioFake);
+    navigate("/home");
+  };
+
   return (
     <div className="page">
       <div className="logo-area">
@@ -101,6 +112,23 @@ function Login() {
               {carregando ? "Entrando..." : "Entrar"}
             </button>
           </form>
+
+          {/* BOTÃO PARA TESTAR A HOME */}
+          <button
+            onClick={entrarTeste}
+            style={{
+              marginTop: "10px",
+              background: "#f97316",
+              color: "white",
+              border: "none",
+              padding: "10px",
+              borderRadius: "6px",
+              width: "100%",
+              cursor: "pointer"
+            }}
+          >
+            Entrar sem login (teste)
+          </button>
 
           {erro && <p className="erro">{erro}</p>}
 
