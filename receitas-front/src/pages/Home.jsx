@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../style/home.css";
 
 const RECEITAS = [
@@ -109,6 +110,8 @@ export default function Home() {
   const [chefseguidos, setChefSeguidos] = useState([]);
   const [navAtivo, setNavAtivo] = useState("home");
 
+  const navigate = useNavigate();
+
   const toggleLike = (id) => {
     setReceitas((prev) =>
       prev.map((r) =>
@@ -141,7 +144,7 @@ export default function Home() {
     { id: "notif", emoji: "🔔" },
     { id: "busca", emoji: "🔎" },
     { id: "favoritos", emoji: "❤️" },
-    { id: "adicionar", emoji: "➕" },
+    { id: "adicionar", emoji: "➕", action: () => navigate("/criar-receita") },
     { id: "perfil", emoji: "👤" },
     { id: "config", emoji: "⚙️" },
   ];
@@ -155,7 +158,10 @@ export default function Home() {
             <button
               key={item.id}
               className={`nav-btn ${navAtivo === item.id ? "nav-ativo" : ""}`}
-              onClick={() => setNavAtivo(item.id)}
+              onClick={() => {
+                setNavAtivo(item.id);
+                if (item.action) item.action();
+              }}
             >
               {item.emoji}
             </button>
@@ -188,53 +194,50 @@ export default function Home() {
           {receitasFiltradas.length === 0 && (
             <div className="vazio">Nenhuma receita nessa categoria.</div>
           )}
-       {receitasFiltradas.map((receita) => (
-  <div className="card" key={receita.id}>
-    <div className="card-img-wrap">
-      <img src={receita.img} alt={receita.titulo} className="card-img" />
-      <span className="tempo-badge">⏱ {receita.tempo}</span>
-      <span className="categoria-badge">
-        {receita.categoriaEmoji} {receita.categoria}
-      </span>
-    </div>
-
-    <div className="card-body">
-      <div className="card-autor">
-        <div className="avatar" style={{ background: receita.avatarCor }}>
-          {receita.autorInicial}
+          {receitasFiltradas.map((receita) => (
+            <div className="card" key={receita.id}>
+              <div className="card-img-wrap">
+                <img src={receita.img} alt={receita.titulo} className="card-img" />
+                <span className="tempo-badge">⏱ {receita.tempo}</span>
+                <span className="categoria-badge">
+                  {receita.categoriaEmoji} {receita.categoria}
+                </span>
+              </div>
+              <div className="card-body">
+                <div className="card-autor">
+                  <div className="avatar" style={{ background: receita.avatarCor }}>
+                    {receita.autorInicial}
+                  </div>
+                  <span className="autor-nome">{receita.autor}</span>
+                </div>
+                <h3 className="card-titulo">{receita.titulo}</h3>
+                <div className="card-acoes">
+                  <button
+                    className={`like-btn${receita.curtido ? " curtido" : ""}`}
+                    onClick={() => toggleLike(receita.id)}
+                  >
+                    {receita.curtido ? "❤️" : "🤍"} {receita.likes}
+                  </button>
+                  <span className="comentarios">💬 {receita.comentarios}</span>
+                  <button
+                    className={`bookmark-btn${receita.salvo ? " salvo" : ""}`}
+                    onClick={() => toggleSalvo(receita.id)}
+                  >
+                    {receita.salvo ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    ) : (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        <span className="autor-nome">{receita.autor}</span>
-      </div>
-      <h3 className="card-titulo">{receita.titulo}</h3>
-      <div className="card-acoes">
-        <button
-            className={`like-btn${receita.curtido ? " curtido" : ""}`}
-            onClick={() => toggleLike(receita.id)}
-        >
-            {receita.curtido ? "❤️" : "🤍"} {receita.likes}
-        </button>
-        <span className="comentarios">
-            💬 {receita.comentarios}
-        </span>
-        <button
-            className={`bookmark-btn${receita.salvo ? " salvo" : ""}`}
-            onClick={() => toggleSalvo(receita.id)}
-        >
-            {receita.salvo ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
-            </svg>
-            ) : (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
-            </svg>
-            )}
-        </button>
-        </div>
-      </div>
-    </div>
-))}
-</div>
       </main>
 
       <aside className="right-panel">
