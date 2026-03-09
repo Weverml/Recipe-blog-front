@@ -47,4 +47,11 @@ export const estaLogado = () => {
   return !!localStorage.getItem("usuario");
 };
 
+export const criarReceita = async (dados) => {
+  const response = await api.post("/receitas", dados, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
 export default api;

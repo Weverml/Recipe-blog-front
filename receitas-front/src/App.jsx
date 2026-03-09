@@ -6,6 +6,8 @@ import RecuperarSenha from "./pages/RecuperarSenha";
 import RedefinirSenha from "./pages/RedefinirSenha";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
+import CriarReceita from "./pages/CriarReceita";
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/redefinirSenha" element={<RedefinirSenha />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/criar-receita" element={<CriarReceita />} />
 
       </Routes>
     </BrowserRouter>

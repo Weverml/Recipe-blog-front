@@ -27,7 +27,7 @@ body {
   background: var(--bg);
 }
 
-/* SIDEBAR */
+
 .sidebar {
   width: 68px;
   min-width: 68px;
@@ -79,7 +79,7 @@ body {
   box-shadow: inset 3px 0 0 var(--laranja);
 }
 
-/* MAIN */
+
 .main {
   flex: 1;
   padding: 28px 32px;
@@ -105,8 +105,7 @@ body {
   font-weight: 500;
 }
 
-/* FILTROS */
-/* FILTROS - substitui o bloco .filtros-wrap e .filtros */
+
 .filtros-wrap {
   width: 100%;
   overflow-x: auto;
@@ -131,7 +130,7 @@ body {
   gap: 6px;
   border: none;
   padding: 9px 18px;
-  border-radius: 50px;
+  border-radius: 80px;
   background: var(--branco);
   color: var(--cinza-escuro);
   font-family: 'Nunito', sans-serif;
@@ -319,7 +318,7 @@ body {
   white-space: nowrap;
 }
 
-/* PAINEL DIREITO */
+
 .right-panel {
   width: 290px;
   min-width: 290px;
@@ -406,7 +405,7 @@ body {
   color: white;
 }
 
-/* STATS */
+
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
