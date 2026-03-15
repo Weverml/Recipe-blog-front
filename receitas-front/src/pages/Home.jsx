@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Home as HomeIcon, Bell, Search, Heart, Plus, User, Settings, Bookmark, MessageCircle, ChefHat, BarChart2
+} from "lucide-react";
 import "../style/home.css";
 
 const RECEITAS = [
   {
     id: 1,
+    autorId: 1,
     titulo: "Risoto de Cogumelos",
     categoria: "Italiana",
     categoriaEmoji: "🍝",
@@ -19,6 +23,7 @@ const RECEITAS = [
   },
   {
     id: 2,
+    autorId: 2,
     titulo: "Açaí com Granola",
     categoria: "Saudável",
     categoriaEmoji: "🥗",
@@ -33,6 +38,7 @@ const RECEITAS = [
   },
   {
     id: 3,
+    autorId: 3,
     titulo: "Tapioca Recheada",
     categoria: "Brasileira",
     categoriaEmoji: "🇧🇷",
@@ -47,6 +53,7 @@ const RECEITAS = [
   },
   {
     id: 4,
+    autorId: 4,
     titulo: "Brigadeiro Gourmet",
     categoria: "Sobremesa",
     categoriaEmoji: "🍫",
@@ -61,6 +68,7 @@ const RECEITAS = [
   },
   {
     id: 5,
+    autorId: 5,
     titulo: "Sushi Caseiro",
     categoria: "Asiática",
     categoriaEmoji: "🍱",
@@ -75,6 +83,7 @@ const RECEITAS = [
   },
   {
     id: 6,
+    autorId: 1,
     titulo: "Pão de Queijo Mineiro",
     categoria: "Brasileira",
     categoriaEmoji: "🇧🇷",
@@ -99,9 +108,9 @@ const FILTROS = [
 ];
 
 const CHEFS = [
-  { nome: "Chef André", inicial: "CA", cor: "#5C8B3F", receitas: 45 },
-  { nome: "Patrícia Gomes", inicial: "PG", cor: "#C0583A", receitas: 32 },
-  { nome: "Rafael Dias", inicial: "RD", cor: "#3A8BC0", receitas: 28 },
+  { id: 1, nome: "Chef André", inicial: "CA", cor: "#5C8B3F", receitas: 45 },
+  { id: 2, nome: "Patrícia Gomes", inicial: "PG", cor: "#C0583A", receitas: 32 },
+  { id: 3, nome: "Rafael Dias", inicial: "RD", cor: "#3A8BC0", receitas: 28 },
 ];
 
 export default function Home() {
@@ -109,7 +118,6 @@ export default function Home() {
   const [receitas, setReceitas] = useState(RECEITAS);
   const [chefseguidos, setChefSeguidos] = useState([]);
   const [navAtivo, setNavAtivo] = useState("home");
-
   const navigate = useNavigate();
 
   const toggleLike = (id) => {
@@ -140,13 +148,13 @@ export default function Home() {
       : receitas.filter((r) => r.categoria === filtroAtivo);
 
   const navItems = [
-    { id: "home", emoji: "🏠" },
-    { id: "notif", emoji: "🔔" },
-    { id: "busca", emoji: "🔎" },
-    { id: "favoritos", emoji: "❤️" },
-    { id: "adicionar", emoji: "➕", action: () => navigate("/criar-receita") },
-    { id: "perfil", emoji: "👤" },
-    { id: "config", emoji: "⚙️" },
+    { id: "home", icon: <HomeIcon size={22} /> },
+    { id: "notif", icon: <Bell size={22} /> },
+    { id: "busca", icon: <Search size={22} /> },
+    { id: "favoritos", icon: <Heart size={22} /> },
+    { id: "adicionar", icon: <Plus size={22} />, action: () => navigate("/criar-receita") },
+    { id: "perfil", icon: <User size={22} />, action: () => navigate("/perfil") },
+    { id: "config", icon: <Settings size={22} /> },
   ];
 
   return (
@@ -163,7 +171,7 @@ export default function Home() {
                 if (item.action) item.action();
               }}
             >
-              {item.emoji}
+              {item.icon}
             </button>
           ))}
         </nav>
@@ -195,43 +203,42 @@ export default function Home() {
             <div className="vazio">Nenhuma receita nessa categoria.</div>
           )}
           {receitasFiltradas.map((receita) => (
-            <div className="card" key={receita.id}>
-              <div className="card-img-wrap">
-                <img src={receita.img} alt={receita.titulo} className="card-img" />
+            <div className="receita-card" key={receita.id}>
+              <div className="receita-card-img-wrap">
+                <img src={receita.img} alt={receita.titulo} className="receita-card-img" />
                 <span className="tempo-badge">⏱ {receita.tempo}</span>
                 <span className="categoria-badge">
                   {receita.categoriaEmoji} {receita.categoria}
                 </span>
               </div>
-              <div className="card-body">
-                <div className="card-autor">
+              <div className="receita-card-body">
+                <div
+                  className="receita-card-autor"
+                  onClick={() => navigate(`/perfil/${receita.autorId}`)}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="avatar" style={{ background: receita.avatarCor }}>
                     {receita.autorInicial}
                   </div>
                   <span className="autor-nome">{receita.autor}</span>
                 </div>
-                <h3 className="card-titulo">{receita.titulo}</h3>
-                <div className="card-acoes">
+                <h3 className="receita-card-titulo">{receita.titulo}</h3>
+                <div className="receita-card-acoes">
                   <button
                     className={`like-btn${receita.curtido ? " curtido" : ""}`}
                     onClick={() => toggleLike(receita.id)}
                   >
-                    {receita.curtido ? "❤️" : "🤍"} {receita.likes}
+                    <Heart size={15} fill={receita.curtido ? "#e0345a" : "none"} color={receita.curtido ? "#e0345a" : "#777"} />
+                    {receita.likes}
                   </button>
-                  <span className="comentarios">💬 {receita.comentarios}</span>
+                  <span className="comentarios">
+                    <MessageCircle size={15} /> {receita.comentarios}
+                  </span>
                   <button
                     className={`bookmark-btn${receita.salvo ? " salvo" : ""}`}
                     onClick={() => toggleSalvo(receita.id)}
                   >
-                    {receita.salvo ? (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    ) : (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 3h14a1 1 0 0 1 1 1v17l-8-4-8 4V4a1 1 0 0 1 1-1z"/>
-                      </svg>
-                    )}
+                    <Bookmark size={16} fill={receita.salvo ? "#E8762B" : "none"} color={receita.salvo ? "#E8762B" : "#aaa"} />
                   </button>
                 </div>
               </div>
@@ -242,17 +249,27 @@ export default function Home() {
 
       <aside className="right-panel">
         <div className="chefs-box">
-          <h3 className="chefs-titulo">👨‍🍳 Chefs para Seguir</h3>
+          <h3 className="chefs-titulo"><ChefHat size={16} /> Chefs para Seguir</h3>
           <div className="chefs-lista">
             {CHEFS.map((chef) => {
               const seguindo = chefseguidos.includes(chef.nome);
               return (
                 <div className="chef-row" key={chef.nome}>
-                  <div className="avatar chef-avatar" style={{ background: chef.cor }}>
+                  <div
+                    className="avatar chef-avatar"
+                    style={{ background: chef.cor, cursor: "pointer" }}
+                    onClick={() => navigate(`/perfil/${chef.id}`)}
+                  >
                     {chef.inicial}
                   </div>
                   <div className="chef-info">
-                    <p className="chef-nome">{chef.nome}</p>
+                    <p
+                      className="chef-nome"
+                      onClick={() => navigate(`/perfil/${chef.id}`)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {chef.nome}
+                    </p>
                     <small className="chef-receitas">{chef.receitas} receitas</small>
                   </div>
                   <button
@@ -268,7 +285,7 @@ export default function Home() {
         </div>
 
         <div className="stats-box">
-          <h3 className="chefs-titulo">📊 Sua Atividade</h3>
+          <h3 className="chefs-titulo"><BarChart2 size={16} /> Sua Atividade</h3>
           <div className="stats-grid">
             <div className="stat-item">
               <span className="stat-num">12</span>
@@ -294,3 +311,4 @@ export default function Home() {
     </div>
   );
 }
+

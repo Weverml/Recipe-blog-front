@@ -294,3 +294,6 @@ body {
   .criar-card { padding: 20px; }
   .criar-row { flex-direction: column; }
 }
+body {
+  user-select: none;
+}

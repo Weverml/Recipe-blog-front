@@ -1,8 +1,6 @@
-/* recuperar-senha.css */
+
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html, body, #root {
@@ -26,13 +24,13 @@ html, body, #root {
 
 .logo {
   color: #E57C35;
-  font-size: 45px;
+  font-size: 48px;
   font-family: 'Georgia', serif;
 }
 
 .subtitle {
   color: #937c6c;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 15px;
 }
 
@@ -155,4 +153,7 @@ button:hover {
   padding: 15px;
   font-size: 13px;
   color: #888;
+}
+body {
+  user-select: none;
 }
