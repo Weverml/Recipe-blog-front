@@ -57,7 +57,7 @@ function RecuperarSenha() {
               <p className="sucesso-texto">
                 Verifique sua caixa de entrada para redefinir sua senha.
               </p>
-                {/* botão temporário para testar o fluxo */}
+                
                 <Link to="/redefinirSenha">
                 <button style={{ marginTop: "15px" }}>Redefinir senha</button>
                 </Link>

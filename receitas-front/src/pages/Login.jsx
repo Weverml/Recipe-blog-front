@@ -61,7 +61,7 @@ function Login() {
     }
   };
 
-  /* BOTÃO DE TESTE */
+ 
   const entrarTeste = () => {
     const usuarioFake = {
       nome: "Usuário Teste",
@@ -113,22 +113,6 @@ function Login() {
             </button>
           </form>
 
-          {/* BOTÃO PARA TESTAR A HOME */}
-          <button
-            onClick={entrarTeste}
-            style={{
-              marginTop: "10px",
-              background: "#f97316",
-              color: "white",
-              border: "none",
-              padding: "10px",
-              borderRadius: "6px",
-              width: "100%",
-              cursor: "pointer"
-            }}
-          >
-            Entrar sem login (teste)
-          </button>
 
           {erro && <p className="erro">{erro}</p>}
 

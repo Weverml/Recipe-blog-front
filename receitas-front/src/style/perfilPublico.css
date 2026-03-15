@@ -1,0 +1,32 @@
+
+
+.seguir-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--laranja);
+  color: white;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.seguir-btn:hover {
+  background: #cf641e;
+}
+
+.seguir-btn.seguindo {
+  background: transparent;
+  color: var(--laranja);
+  border: 1.5px solid var(--laranja);
+}
+
+.seguir-btn.seguindo:hover {
+  background: #fff0e6;
+}

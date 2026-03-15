@@ -53,5 +53,20 @@ export const criarReceita = async (dados) => {
   });
   return response.data;
 };
+export const buscarPerfilCompleto = async (id) => {
+  const response = await api.get(`/usuarios/${id}/perfil`);
+  return response.data;
+};
 
+export const atualizarPerfil = async (id, formData) => {
+  const response = await api.put(`/usuarios/${id}/perfil`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
+export const listarReceitasUsuario = async (usuarioId) => {
+  const response = await api.get(`/receitas/usuario/${usuarioId}`);
+  return response.data;
+};
 export default api;
