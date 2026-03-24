@@ -1,20 +1,13 @@
 
 
 .seguir-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--laranja);
-  color: white;
-  border: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  width: auto !important;
+  padding: 6px 18px !important;
+  background: var(--laranja) !important;
+  color: white !important;
 }
 
 .seguir-btn:hover {
@@ -22,11 +15,15 @@
 }
 
 .seguir-btn.seguindo {
-  background: transparent;
-  color: var(--laranja);
-  border: 1.5px solid var(--laranja);
+  background: transparent !important;
+  color: var(--laranja) !important;
+  border: 1.5px solid var(--laranja) !important;
 }
 
 .seguir-btn.seguindo:hover {
   background: #fff0e6;
+}
+.seguir-btn svg {
+  display: inline-block !important;
+  flex-shrink: 0;
 }

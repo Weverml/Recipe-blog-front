@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Home as HomeIcon, Bell, Search, Bookmark, Settings,
-  LayoutGrid, Camera, Pencil, Plus, X, Clock, Heart, MessageCircle, User
+  Bookmark, LayoutGrid, Camera, Pencil, Plus, X, Clock, Heart, MessageCircle
 } from "lucide-react";
 import "../style/perfil.css";
 import {
@@ -11,6 +10,7 @@ import {
   listarReceitasUsuario,
   getUsuarioLogado
 } from "../services/api";
+import Navbar from "./Navbar";
 
 const RECEITAS_SALVAS = [];
 
@@ -46,7 +46,6 @@ export default function Perfil() {
 
   const [abaAtiva, setAbaAtiva] = useState("publicacoes");
   const [receitaSelecionada, setReceitaSelecionada] = useState(null);
-  const [navAtivo, setNavAtivo] = useState("perfil");
   const [editarAberto, setEditarAberto] = useState(false);
   const [statsModal, setStatsModal] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -87,16 +86,6 @@ export default function Perfil() {
 
   const receitasExibidas = abaAtiva === "publicacoes" ? receitas : RECEITAS_SALVAS;
 
-  const navItems = [
-    { id: "home", icon: <HomeIcon size={22} />, action: () => navigate("/home") },
-    { id: "notif", icon: <Bell size={22} /> },
-    { id: "busca", icon: <Search size={22} /> },
-    { id: "favoritos", icon: <Heart size={22} /> },
-    { id: "adicionar", icon: <Plus size={22} />, action: () => navigate("/criar-receita") },
-    { id: "perfil", icon: <User size={22} />, action: () => navigate("/perfil") },
-    { id: "config", icon: <Settings size={22} /> },
-  ];
-
   const abrirEditar = () => {
     setEditForm({
       nome: perfil?.nome || "",
@@ -124,7 +113,6 @@ export default function Perfil() {
       console.error(error);
     }
   };
-
 
   const handleFotoPerfilChange = async (e) => {
     const file = e.target.files[0];
@@ -156,32 +144,18 @@ export default function Perfil() {
 
   return (
     <div className="perfil-container">
-
       <header className="perfil-header">
         <span className="header-logo-text">Feedeat</span>
       </header>
 
       <div className="perfil-body">
-        <aside className="perfil-sidebar">
-          <nav className="sidebar-nav">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                className={`sidebar-btn ${navAtivo === item.id ? "sidebar-ativo" : ""}`}
-                onClick={() => { setNavAtivo(item.id); if (item.action) item.action(); }}
-              >
-                {item.icon}
-              </button>
-            ))}
-          </nav>
-        </aside>
+        <Navbar ativo="perfil" />
 
         <main className="perfil-main">
           <div className="perfil-card">
             <div className="perfil-avatar-wrap" onClick={() => fileInputPerfilRef.current.click()}>
               <div className="avatar-ring">
                 <div className="perfil-avatar">
-                  
                   {perfil?.fotoPerfil
                     ? <img src={perfil.fotoPerfil} alt="avatar" />
                     : perfil?.nome?.[0]?.toUpperCase() || "U"}
@@ -207,11 +181,11 @@ export default function Perfil() {
                   <span>publicações</span>
                 </div>
                 <div className="stat stat-clicavel" onClick={() => setStatsModal("seguidores")}>
-                  <strong>248</strong>
+                  <strong>{perfil?.totalSeguidores ?? 0}</strong>
                   <span>seguidores</span>
                 </div>
                 <div className="stat stat-clicavel" onClick={() => setStatsModal("seguindo")}>
-                  <strong>89</strong>
+                  <strong>{perfil?.totalSeguindo ?? 0}</strong>
                   <span>seguindo</span>
                 </div>
               </div>
@@ -235,7 +209,6 @@ export default function Perfil() {
                 {receitasExibidas.length === 0 && <p className="vazio-msg">Nenhuma receita aqui ainda.</p>}
                 {receitasExibidas.map((receita) => (
                   <div className="foto-item" key={receita.id} onClick={() => setReceitaSelecionada(receita)}>
-                  
                     {receita.imagemUrl
                       ? <img src={receita.imagemUrl} alt={receita.titulo} />
                       : <div className="foto-sem-imagem">📷</div>
@@ -256,7 +229,6 @@ export default function Perfil() {
         </main>
       </div>
 
-      
       {statsModal && (
         <div className="modal-overlay" onClick={() => setStatsModal(null)}>
           <div className="modal-stats-lista" onClick={(e) => e.stopPropagation()}>
@@ -279,7 +251,6 @@ export default function Perfil() {
         </div>
       )}
 
-    
       {receitaSelecionada && (
         <div className="modal-overlay" onClick={() => setReceitaSelecionada(null)}>
           <div className="modal-detalhe" onClick={(e) => e.stopPropagation()}>
@@ -323,7 +294,6 @@ export default function Perfil() {
         </div>
       )}
 
-    
       {editarAberto && (
         <div className="modal-overlay" onClick={() => setEditarAberto(false)}>
           <div className="modal-editar" onClick={(e) => e.stopPropagation()}>
@@ -354,7 +324,6 @@ export default function Perfil() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

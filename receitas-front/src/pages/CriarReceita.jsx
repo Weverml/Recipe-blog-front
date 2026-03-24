@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/criarReceita.css";
 import { criarReceita, getUsuarioLogado } from "../services/api";
+import Navbar from "./Navbar";
+import { UtensilsCrossed } from "lucide-react";
 
 const CATEGORIAS = ["Brasileira", "Italiana", "Asiática", "Saudável", "Sobremesa"];
 
@@ -68,7 +70,6 @@ export default function CriarReceita() {
 
     try {
       const usuario = getUsuarioLogado();
-
       const formData = new FormData();
       formData.append("usuarioId", usuario.id);
       formData.append("titulo", form.titulo);
@@ -90,14 +91,16 @@ export default function CriarReceita() {
 
   return (
     <div className="criar-container">
-      <header className="criar-header">
-        <button className="voltar-btn" onClick={() => navigate("/home")}>
-          ← Voltar
-        </button>
-        <h1>Nova Receita</h1>
-      </header>
+      <Navbar ativo="adicionar" />
 
       <div className="criar-body">
+       <header className="criar-header">
+          <button className="voltar-btn" onClick={() => navigate("/home")}>
+            ← Voltar
+          </button>
+          <h1>Nova Receita</h1>
+        </header>
+
         <div className="criar-card">
 
           <div className="campo">
@@ -226,3 +229,4 @@ export default function CriarReceita() {
     </div>
   );
 }
+

@@ -1,0 +1,205 @@
+
+.busca-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+}
+
+.busca-painel {
+  width: 440px;
+  height: 100vh;
+  background: var(--branco);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.busca-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.busca-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--laranja);
+  font-family: 'Playfair Display', serif;
+}
+
+.busca-fechar {
+  background: #EDEBE6 !important;
+  border: none;
+  cursor: pointer;
+  color: #3a3a3a;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  padding: 0 !important;
+}
+
+.busca-fechar:hover {
+  background: #d9d6d0;
+}
+
+.busca-fechar svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--cinza-escuro);
+  display: block;
+}
+
+.busca-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--branco);
+  border-radius: 12px;
+  padding: 6px 14px !important;
+  border: 1.5px solid var(--cinza-borda);
+  transition: border 0.2s;
+}
+
+.busca-input-wrap input {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+.busca-input-wrap:focus-within {
+  border-color: var(--laranja);
+}
+
+.busca-input {
+  border: none;
+  background: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  color: var(--cinza-escuro);
+}
+
+.busca-secao-titulo {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--laranja);
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+}
+
+.busca-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.busca-usuario-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.busca-usuario-row:hover {
+  background: var(--bg);
+}
+
+.busca-avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.busca-nome {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cinza-escuro);
+}
+
+.busca-username {
+  font-size: 12px;
+  color: var(--cinza-texto);
+  font-weight: 500;
+}
+
+.busca-vazio {
+  text-align: center;
+  color: var(--cinza-texto);
+  padding: 20px 0;
+  font-size: 14px;
+}
+.busca-subsecao {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--cinza-texto);
+  letter-spacing: 1.2px;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.busca-receita-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.busca-receita-row:hover {
+  background: var(--bg);
+}
+
+.busca-receita-img {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 10px;
+  background: #f3ede6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.busca-receita-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.busca-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  isolation: isolate;
+}

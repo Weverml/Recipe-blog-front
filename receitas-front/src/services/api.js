@@ -69,4 +69,35 @@ export const listarReceitasUsuario = async (usuarioId) => {
   const response = await api.get(`/receitas/usuario/${usuarioId}`);
   return response.data;
 };
+
+
+export const buscarFeed = async (usuarioId) => {
+  const response = await api.get(`/receitas/feed/${usuarioId}`);
+  return response.data;
+};
+export const seguirUsuario = async (seguidorId, seguidoId) => {
+  await api.post(`/usuarios/${seguidorId}/seguir/${seguidoId}`);
+};
+
+export const deixarDeSeguirUsuario = async (seguidorId, seguidoId) => {
+  await api.delete(`/usuarios/${seguidorId}/seguir/${seguidoId}`);
+};
+
+export const verificarSeguindo = async (seguidorId, seguidoId) => {
+  const response = await api.get(`/usuarios/${seguidorId}/seguindo/${seguidoId}`);
+  return response.data; // true | false
+};
+
+
+
+export const buscarUsuarios = async (termo) => {
+  const response = await api.get(`/usuarios/buscar`, { params: { termo } });
+  return response.data;
+};
+
+export const buscarReceitas = async (termo) => {
+  const response = await api.get(`/receitas/buscar`, { params: { termo } });
+  return response.data;
+};
+
 export default api;

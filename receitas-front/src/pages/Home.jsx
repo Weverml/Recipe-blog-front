@@ -1,102 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Home as HomeIcon, Bell, Search, Heart, Plus, User, Settings, Bookmark, MessageCircle, ChefHat, BarChart2
-} from "lucide-react";
+import { Heart, Bookmark, MessageCircle, ChefHat, BarChart2, X, Clock } from "lucide-react";
 import "../style/home.css";
-
-const RECEITAS = [
-  {
-    id: 1,
-    autorId: 1,
-    titulo: "Risoto de Cogumelos",
-    categoria: "Italiana",
-    categoriaEmoji: "🍝",
-    tempo: "35 min",
-    autor: "Chef André",
-    autorInicial: "CA",
-    avatarCor: "#5C8B3F",
-    likes: 42,
-    comentarios: 8,
-    img: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=600&q=80",
-    salvo: false,
-  },
-  {
-    id: 2,
-    autorId: 2,
-    titulo: "Açaí com Granola",
-    categoria: "Saudável",
-    categoriaEmoji: "🥗",
-    tempo: "10 min",
-    autor: "Patrícia Gomes",
-    autorInicial: "PG",
-    avatarCor: "#C0583A",
-    likes: 89,
-    comentarios: 15,
-    img: "https://images.unsplash.com/photo-1501746877-14782df58970?auto=format&fit=crop&w=600&q=80",
-    salvo: true,
-  },
-  {
-    id: 3,
-    autorId: 3,
-    titulo: "Tapioca Recheada",
-    categoria: "Brasileira",
-    categoriaEmoji: "🇧🇷",
-    tempo: "20 min",
-    autor: "João Costa",
-    autorInicial: "JC",
-    avatarCor: "#3A6EC0",
-    likes: 61,
-    comentarios: 11,
-    img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80",
-    salvo: false,
-  },
-  {
-    id: 4,
-    autorId: 4,
-    titulo: "Brigadeiro Gourmet",
-    categoria: "Sobremesa",
-    categoriaEmoji: "🍫",
-    tempo: "45 min",
-    autor: "Lucas Silva",
-    autorInicial: "LS",
-    avatarCor: "#8B5E3C",
-    likes: 134,
-    comentarios: 27,
-    img: "https://images.unsplash.com/photo-1541599468348-e96984315921?auto=format&fit=crop&w=600&q=80",
-    salvo: false,
-  },
-  {
-    id: 5,
-    autorId: 5,
-    titulo: "Sushi Caseiro",
-    categoria: "Asiática",
-    categoriaEmoji: "🍱",
-    tempo: "60 min",
-    autor: "Tânia Hashimoto",
-    autorInicial: "TH",
-    avatarCor: "#7A3AC0",
-    likes: 77,
-    comentarios: 19,
-    img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=600&q=80",
-    salvo: false,
-  },
-  {
-    id: 6,
-    autorId: 1,
-    titulo: "Pão de Queijo Mineiro",
-    categoria: "Brasileira",
-    categoriaEmoji: "🇧🇷",
-    tempo: "25 min",
-    autor: "Chef André",
-    autorInicial: "CA",
-    avatarCor: "#5C8B3F",
-    likes: 203,
-    comentarios: 34,
-    img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80",
-    salvo: true,
-  },
-];
+import Navbar from "./Navbar";
+import { buscarFeed, getUsuarioLogado } from "../services/api";
 
 const FILTROS = [
   { label: "Todas", emoji: "🍽️" },
@@ -115,10 +22,21 @@ const CHEFS = [
 
 export default function Home() {
   const [filtroAtivo, setFiltroAtivo] = useState("Todas");
-  const [receitas, setReceitas] = useState(RECEITAS);
+  const [receitas, setReceitas] = useState([]);
+  const [receitaSelecionada, setReceitaSelecionada] = useState(null);
   const [chefseguidos, setChefSeguidos] = useState([]);
-  const [navAtivo, setNavAtivo] = useState("home");
   const navigate = useNavigate();
+
+  const [usuario, setUsuario] = useState(null);
+
+useEffect(() => {
+  const usuarioLogado = getUsuarioLogado();
+  if (!usuarioLogado) return;
+  setUsuario(usuarioLogado);
+  buscarFeed(usuarioLogado.id)
+    .then(setReceitas)
+    .catch(() => {});
+}, []);
 
   const toggleLike = (id) => {
     setReceitas((prev) =>
@@ -147,40 +65,14 @@ export default function Home() {
       ? receitas
       : receitas.filter((r) => r.categoria === filtroAtivo);
 
-  const navItems = [
-    { id: "home", icon: <HomeIcon size={22} /> },
-    { id: "notif", icon: <Bell size={22} /> },
-    { id: "busca", icon: <Search size={22} /> },
-    { id: "favoritos", icon: <Heart size={22} /> },
-    { id: "adicionar", icon: <Plus size={22} />, action: () => navigate("/criar-receita") },
-    { id: "perfil", icon: <User size={22} />, action: () => navigate("/perfil") },
-    { id: "config", icon: <Settings size={22} /> },
-  ];
-
   return (
     <div className="home-container">
-      <aside className="sidebar">
-        <div className="logo-icon">🍽</div>
-        <nav className="nav-icons">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              className={`nav-btn ${navAtivo === item.id ? "nav-ativo" : ""}`}
-              onClick={() => {
-                setNavAtivo(item.id);
-                if (item.action) item.action();
-              }}
-            >
-              {item.icon}
-            </button>
-          ))}
-        </nav>
-      </aside>
+      <Navbar ativo="home" />
 
       <main className="main">
         <header className="main-header">
           <h1 className="titulo-app">Feedeat</h1>
-          <p className="subtitulo">Olá! O que vamos cozinhar hoje? 👨‍🍳</p>
+         <p className="subtitulo">Olá, {usuario?.nome}! O que vamos cozinhar hoje? 👨‍🍳</p>
         </header>
 
         <div className="filtros-wrap">
@@ -203,30 +95,38 @@ export default function Home() {
             <div className="vazio">Nenhuma receita nessa categoria.</div>
           )}
           {receitasFiltradas.map((receita) => (
-            <div className="receita-card" key={receita.id}>
+            <div
+              className="receita-card"
+              key={receita.id}
+              onClick={() => setReceitaSelecionada(receita)}
+              style={{ cursor: "pointer" }}
+            >
               <div className="receita-card-img-wrap">
-                <img src={receita.img} alt={receita.titulo} className="receita-card-img" />
-                <span className="tempo-badge">⏱ {receita.tempo}</span>
+                <img src={receita.imagemUrl} alt={receita.titulo} className="receita-card-img" />
+                <span className="tempo-badge">⏱ {receita.tempoPreparo} min</span>
                 <span className="categoria-badge">
-                  {receita.categoriaEmoji} {receita.categoria}
+                  {receita.categoria}
                 </span>
               </div>
               <div className="receita-card-body">
                 <div
-                  className="receita-card-autor"
-                  onClick={() => navigate(`/perfil/${receita.autorId}`)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className="avatar" style={{ background: receita.avatarCor }}>
-                    {receita.autorInicial}
-                  </div>
-                  <span className="autor-nome">{receita.autor}</span>
-                </div>
+              
+  className="receita-card-autor"
+        onClick={(e) => { e.stopPropagation(); navigate(`/perfil/${receita.usuarioId}`); }}
+        style={{ cursor: "pointer" }}
+      >
+        <div className="avatar" style={{ background: receita.avatarCor || "#E8762B" }}>
+          {receita.usuarioFoto
+            ? <img src={receita.usuarioFoto} alt="avatar" style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }} />
+            : receita.usuarioNome?.[0]?.toUpperCase()}
+        </div>
+        <span className="autor-nome">{receita.usuarioNome}</span>
+</div>
                 <h3 className="receita-card-titulo">{receita.titulo}</h3>
                 <div className="receita-card-acoes">
                   <button
                     className={`like-btn${receita.curtido ? " curtido" : ""}`}
-                    onClick={() => toggleLike(receita.id)}
+                    onClick={(e) => { e.stopPropagation(); toggleLike(receita.id); }}
                   >
                     <Heart size={15} fill={receita.curtido ? "#e0345a" : "none"} color={receita.curtido ? "#e0345a" : "#777"} />
                     {receita.likes}
@@ -236,7 +136,7 @@ export default function Home() {
                   </span>
                   <button
                     className={`bookmark-btn${receita.salvo ? " salvo" : ""}`}
-                    onClick={() => toggleSalvo(receita.id)}
+                    onClick={(e) => { e.stopPropagation(); toggleSalvo(receita.id); }}
                   >
                     <Bookmark size={16} fill={receita.salvo ? "#E8762B" : "none"} color={receita.salvo ? "#E8762B" : "#aaa"} />
                   </button>
@@ -255,27 +155,14 @@ export default function Home() {
               const seguindo = chefseguidos.includes(chef.nome);
               return (
                 <div className="chef-row" key={chef.nome}>
-                  <div
-                    className="avatar chef-avatar"
-                    style={{ background: chef.cor, cursor: "pointer" }}
-                    onClick={() => navigate(`/perfil/${chef.id}`)}
-                  >
+                  <div className="avatar chef-avatar" style={{ background: chef.cor, cursor: "pointer" }} onClick={() => navigate(`/perfil/${chef.id}`)}>
                     {chef.inicial}
                   </div>
                   <div className="chef-info">
-                    <p
-                      className="chef-nome"
-                      onClick={() => navigate(`/perfil/${chef.id}`)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {chef.nome}
-                    </p>
+                    <p className="chef-nome" onClick={() => navigate(`/perfil/${chef.id}`)} style={{ cursor: "pointer" }}>{chef.nome}</p>
                     <small className="chef-receitas">{chef.receitas} receitas</small>
                   </div>
-                  <button
-                    className={`seguir-btn${seguindo ? " seguindo" : ""}`}
-                    onClick={() => toggleSeguir(chef.nome)}
-                  >
+                  <button className={`seguir-btn${seguindo ? " seguindo" : ""}`} onClick={() => toggleSeguir(chef.nome)}>
                     {seguindo ? "✓ Seguindo" : "Seguir"}
                   </button>
                 </div>
@@ -287,28 +174,61 @@ export default function Home() {
         <div className="stats-box">
           <h3 className="chefs-titulo"><BarChart2 size={16} /> Sua Atividade</h3>
           <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-num">12</span>
-              <span className="stat-label">Receitas salvas</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-num">5</span>
-              <span className="stat-label">Chefs seguidos</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-num">3</span>
-              <span className="stat-label">Receitas criadas</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-num">87</span>
-              <span className="stat-label">Curtidas dadas</span>
-            </div>
+            <div className="stat-item"><span className="stat-num">12</span><span className="stat-label">Receitas salvas</span></div>
+            <div className="stat-item"><span className="stat-num">5</span><span className="stat-label">Chefs seguidos</span></div>
+            <div className="stat-item"><span className="stat-num">3</span><span className="stat-label">Receitas criadas</span></div>
+            <div className="stat-item"><span className="stat-num">87</span><span className="stat-label">Curtidas dadas</span></div>
           </div>
         </div>
 
         <footer className="panel-footer">© 2026 Feedeat</footer>
       </aside>
+
+      {receitaSelecionada && (
+        <div className="modal-overlay" onClick={() => setReceitaSelecionada(null)}>
+          <div className="modal-detalhe" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-fechar" onClick={() => setReceitaSelecionada(null)}>
+              <X size={16} />
+            </button>
+            <div className="modal-info">
+              <div className="modal-autor">
+              <div className="modal-avatar" style={{ background: receitaSelecionada.avatarCor }}>
+                {receitaSelecionada.usuarioFoto
+                  ? <img src={receitaSelecionada.usuarioFoto} alt="avatar" />
+                  : receitaSelecionada.usuarioNome?.[0]?.toUpperCase()}
+              </div>
+                <span
+                  style={{ cursor: "pointer", fontWeight: 700 }}
+                  onClick={() => { navigate(`/perfil/${receitaSelecionada.autorId}`); setReceitaSelecionada(null); }}
+                >
+                  {receitaSelecionada.usuarioNome}
+                </span>
+                <span className="modal-categoria">{receitaSelecionada.categoria}</span>
+              </div>
+              <h2 className="modal-titulo">{receitaSelecionada.titulo}</h2>
+              <div className="modal-stats">
+                <span><Clock size={14} /> {receitaSelecionada.tempoPreparo} min</span>
+                <span><Heart size={14} /> {receitaSelecionada.likes}</span>
+                <span><MessageCircle size={14} /> {receitaSelecionada.comentarios}</span>
+                <span><Bookmark size={14} /></span>
+              </div>
+              <p className="modal-descricao">{receitaSelecionada.descricao}</p>
+              <div className="modal-secao">
+                <h3>Ingredientes</h3>
+                <ul>
+                  {receitaSelecionada.ingredientes?.split(",").map((ing, i) => (
+                    <li key={i}>{ing.trim()}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="modal-secao">
+                <h3>Modo de Preparo</h3>
+                <p>{receitaSelecionada.modoPreparo}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-

@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
   height: 100%;
+  overflow: hidden;
 }
 
 :root {
@@ -30,6 +31,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background: var(--bg);
+  position: relative;
 }
 
 .sidebar {
@@ -40,13 +42,17 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px 0 30px;
+  border-right: none;
   height: 100vh;
   flex-shrink: 0;
 }
 
 .logo-icon {
-  font-size: 26px;
-  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0 20px;
+  margin-bottom: 0;
 }
 
 .nav-icons {
@@ -93,6 +99,14 @@ body {
 .main::-webkit-scrollbar {
   display: none;
 }
+.main::-webkit-scrollbar-thumb {
+  background: var(--cinza-borda);
+  border-radius: 3px;
+}
+
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 .main-header { margin-bottom: 20px; }
 
@@ -116,6 +130,7 @@ body {
   scrollbar-width: none;
   margin-bottom: 28px;
 }
+
 .filtros-wrap::-webkit-scrollbar { display: none; }
 
 .filtros {
@@ -322,51 +337,17 @@ body {
 .bookmark-btn.salvo { color: var(--laranja); }
 
 .right-panel {
-  scrollbar-width: thin;
-  scrollbar-color: #EDEBE6 transparent;
-}
-
-.right-panel {
   width: 290px;
   min-width: 290px;
   background: var(--bg);
-  padding: 28px 20px 28px 20px;
-  display: flex;
+  border-left: none;
+  padding: 28px 20px;
+  display: flex !important;
   flex-direction: column;
-  gap: 22px;
+  gap: 16px;
   height: 100vh;
-  max-height: 100vh;
   flex-shrink: 0;
-  overflow-y: auto;
-  position: relative;
-   scrollbar-width: thin;
-  scrollbar-color: #EDEBE6 transparent;
-}
-
-.right-panel::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 6px;
-  height: 100vh;
-  background: var(--cinza-borda);
-  border-radius: 3px;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.right-panel::-webkit-scrollbar {
-  width: 6px;
-}
-
-.right-panel::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.right-panel::-webkit-scrollbar-thumb {
-  background: var(--cinza-borda);
-  border-radius: 3px;
+  overflow-y: visible;
 }
 
 .chefs-box, .stats-box {
